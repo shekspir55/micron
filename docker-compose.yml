@@ -13,8 +13,7 @@ services:
       - nginx
 
   cron-frontend:
-    # change to frontend image
-    image: nginx:1.27.0
+    image: cron-frontend
     restart: unless-stopped
     networks:
       - nginx

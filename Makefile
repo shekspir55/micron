@@ -3,7 +3,10 @@
 build-backend:
 	docker build -t cron-backend ./backend
 
-build: build-backend
+build-frontend:
+	docker build -t cron-frontend ./frontend
+
+build: build-backend build-frontend
 
 up: build
 	docker-compose up -d
