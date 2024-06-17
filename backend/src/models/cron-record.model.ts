@@ -13,7 +13,7 @@ import type { PartialBy } from "@sequelize/utils";
 import { getNextRunTime } from "../helpers/chron-util";
 import { log } from "../helpers/logger";
 
-type CronRecordAttributes = {
+export type CronRecordAttributes = {
   id: number;
   schedule: string;
   nextRunTime: Date;

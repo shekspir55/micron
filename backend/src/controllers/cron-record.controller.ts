@@ -1,7 +1,6 @@
 import express, { Request, Response } from "express";
-const router = express.Router();
 
-import { CronRecord } from "../models/cron-record.model";
+import { CronRecord, CronRecordAttributes } from "../models/cron-record.model";
 
 export const getConRecords = async (req: Request, res: Response) => {
   const cronRecords = await CronRecord.findAll();
@@ -13,7 +12,7 @@ export const postConRecord = async (req: Request, res: Response) => {
 
   const cronRecord = new CronRecord({
     schedule,
-  }).save();
+  } as CronRecordAttributes).save();
 
   res.status(201).send(cronRecord);
 };
@@ -47,4 +46,17 @@ export const deleteConRecord = async (req: Request, res: Response) => {
   await cronRecord.destroy();
 
   res.status(204).send();
+};
+
+export const bombardWithConRecord = async (req: Request, res: Response) => {
+  const cronRecords = Array.from({ length: 10000 })
+    .map(() =>
+      Array.from({ length: 5 }, () => Math.floor(Math.random() * 10)).join(" ")
+    )
+    .map((schedule) =>
+      new CronRecord({ schedule } as CronRecordAttributes).save()
+    );
+
+  await Promise.all(cronRecords);
+  return getConRecords(req, res);
 };

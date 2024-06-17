@@ -1,5 +1,8 @@
 
 
+test: build-backend
+	docker run -it cron-backend npm run test
+
 build-backend:
 	docker build -t cron-backend ./backend
 

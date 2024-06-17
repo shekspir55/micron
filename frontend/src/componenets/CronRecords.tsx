@@ -117,7 +117,12 @@ export const CronRecords = () => {
         ‼️ bombard a 10000 records‼️
       </button>
       <div>
-        <h2>{editingCronRecord?.id ? "✏️ Edit" : "➕ Add"} Cron Record</h2>{" "}
+        <h2>
+          {editingCronRecord?.id
+            ? "✏️ Editing record with ID: " + editingCronRecord.id
+            : "➕ Create record"}{" "}
+          Cron Record
+        </h2>{" "}
         <Cron value={schedule} setValue={setSchedule} />
         <button
           onClick={() =>
