@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Log, getLogs } from "../api/logs";
 
+const fiveSeconds = 5000;
 export const Logs = () => {
   const [logs, setLogs] = useState<Log[]>([]);
   const [loading, setLoading] = useState(true);
@@ -19,7 +20,11 @@ export const Logs = () => {
       }
     };
 
-    const logFetchingInterval = setInterval(fetchLogs, 5000);
+
+    // Done it this way, because the logs are not updated in real time
+    // and the logs are limited by 10000 records
+    // no need to websocket or long polling
+    const logFetchingInterval = setInterval(fetchLogs, fiveSeconds);
 
     return () => clearInterval(logFetchingInterval);
   }, []);
