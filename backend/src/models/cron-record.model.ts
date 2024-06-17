@@ -5,8 +5,13 @@ import {
   PrimaryKey,
   Attribute,
   NotNull,
+  BeforeSave,
+  AfterSave,
 } from "@sequelize/core/decorators-legacy";
 import type { PartialBy } from "@sequelize/utils";
+
+import { getNextRunTime } from "../helpers/chron-util";
+import { log } from "../helpers/logger";
 
 type CronRecordAttributes = {
   id: number;
@@ -32,4 +37,21 @@ export class CronRecord extends Model<
   @Attribute(DataTypes.DATE)
   @Index({ name: "b-tree" }) // for a fast range search
   public nextRunTime!: Date;
+
+  @BeforeSave
+  static updateRecordNextRunTime(cronRecord: CronRecord) {
+    cronRecord.nextRunTime = getNextRunTime(cronRecord.schedule);
+  }
+
+  @AfterSave
+  static logRecordUpdate(cronRecord: CronRecord) {
+    log(
+      "Cron job with id: " +
+        cronRecord.id +
+        " scheduled with: " +
+        cronRecord.schedule +
+        " will run at: " +
+        cronRecord.nextRunTime
+    );
+  }
 }
