@@ -11,7 +11,7 @@ import { getLogs } from "./controllers/log.controller";
 const app: Application = express();
 
 // test route
-app.get("/", (req, res) => res.json({ message: "Hello world" }));
+app.get("/", (request, response) => response.json({ message: "Hello world" }));
 
 // logs
 app.get("/api/logs", getLogs);
