@@ -10,7 +10,9 @@ What could be done better? I could have separated worker nodes to separate docke
 
 # Prerequirements
 
-The only pre requirement is for you to have a [docker installed](https://docs.docker.com/engine/install/).
+The only pre requirement is for you to have a [docker installed](https://docs.docker.com/engine/install/). You also need to have `make` command available.
+
+If you don't have make you can run commands from `Makefile` directly in the terminal simulator.
 
 #### Project backend was set up from scratch, no boilerplates were used
 
@@ -22,6 +24,16 @@ Server will start at [http://localhost:8000](http://localhost:8000).
 
 To stop the project please run `make down`.
 
-## Runing tests
+## Running tests
 
 To run the backend test rus `make test`
+
+## How to over enginner it even MORE
+
+We could
+
+1. Set up sharding cluster with Postgres
+2. Set up elastic search cluster for logs
+3. Divide each worker in a separate server which will be connected to it's own "shard" to process the data
+4. Set up swarm/k8s solution to make it muliserver/scalable
+5. Rewrite application with Rust or GO or C

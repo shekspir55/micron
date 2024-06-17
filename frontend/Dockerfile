@@ -1,6 +1,6 @@
 FROM node:latest AS build
 
-WORKDIR /build
+WORKDIR /app
 
 COPY package*.json ./
 
@@ -12,7 +12,7 @@ RUN npm run build
 
 FROM nginx:alpine
 
-COPY --from=build /build /usr/share/nginx/html
+COPY --from=build /app/build /usr/share/nginx/html
 
 EXPOSE 80
 

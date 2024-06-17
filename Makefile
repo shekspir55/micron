@@ -9,6 +9,7 @@ build-backend:
 build-frontend:
 	docker build -t cron-frontend ./frontend
 
+
 build: build-backend build-frontend
 
 up: build
