@@ -3,6 +3,7 @@ import { Cron } from "react-js-cron";
 
 import {
   CronRecord,
+  bombardCronRecord,
   createCronRecord,
   deleteCronRecord,
   getCronRecords,
@@ -68,6 +69,20 @@ export const CronRecords = () => {
     }
   };
 
+  const handleBombard = async () => {
+    try {
+      window.confirm("Are you sure you want to bombard with 10000 records?");
+      setLoading(true);
+      const records = await bombardCronRecord();
+      setCronRecords(records);
+    } catch (error) {
+      console.error("Failed to bombard", error);
+      alert(
+        "Failed to bombard, please reload the page or contact the developer."
+      );
+    }
+  };
+
   useEffect(() => {
     const fetchCronRecords = async () => {
       try {
@@ -98,19 +113,19 @@ export const CronRecords = () => {
   return (
     <div>
       {headLine}
+      <button onClick={() => handleBombard()}>
+        ‼️ bombard a 10000 records‼️
+      </button>
       <div>
         <h2>{editingCronRecord?.id ? "✏️ Edit" : "➕ Add"} Cron Record</h2>{" "}
         <Cron value={schedule} setValue={setSchedule} />
         <button
           onClick={() =>
-            editingCronRecord?.id
-              ? handleUpdate()
-              : handleCreate()
+            editingCronRecord?.id ? handleUpdate() : handleCreate()
           }
         >
           💾 {editingCronRecord?.id ? "Update" : "Create"}
-        </button>
-        {" "}
+        </button>{" "}
         {editingCronRecord?.id && (
           <button onClick={() => setEditingCronRecord(null)}>🚫 Cancel</button>
         )}

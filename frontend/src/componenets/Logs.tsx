@@ -37,6 +37,8 @@ export const Logs = () => {
   return (
     <>
       {headLine}
+      <h2>Note: logs limited by 10000 records</h2>
+      <hr />
       <table>
         <thead>
           <tr>

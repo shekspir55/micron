@@ -44,3 +44,12 @@ export async function deleteCronRecord(recordId: number): Promise<CronRecord> {
 
   return processResponse(response) as Promise<CronRecord>;
 }
+
+
+export async function bombardCronRecord(): Promise<CronRecord[]> {
+  const response = await fetch(`/api/cron-records/bombard`, {
+    method: "POST",
+  });
+
+  return processResponse(response) as Promise<CronRecord[]>;
+}
