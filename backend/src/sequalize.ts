@@ -11,7 +11,6 @@ export const initDB = async function () {
     password: process.env.DB_PASSWORD,
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT),
-    ssl: process.env.DB_SSL === "true",
     clientMinMessages: "notice",
     define: {
       timestamps: false,
@@ -29,6 +28,9 @@ export const initDB = async function () {
   await sequelize.authenticate();
   console.log("Database Connection has been established successfully.");
 
+  // Remove in real production
   await sequelize.sync({ force: true });
+  
   console.log("All models were synchronized successfully.");
+  return sequelize;
 };

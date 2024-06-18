@@ -1,0 +1,14 @@
+
+services:
+  test-postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=cron
+      - POSTGRES_PASSWORD=cron
+      - POSTGRES_DB=cron
+      - POSTGRES_PORT=5432
+    ports:
+      - 5433:5432
+    volumes:
+      - ./test-postgres:/var/lib/postgresql/data

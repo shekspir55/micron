@@ -2,7 +2,10 @@ import { Log } from "../models/log.model";
 
 export async function log(message: string) {
   const log = { message, timestamp: new Date() };
-  console.log(log);
+
   await Log.create(log);
-  return;
+  if (process.env.NODE_ENV === "test") {
+    return;
+  }
+  console.log(log);
 }

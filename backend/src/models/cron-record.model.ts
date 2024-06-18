@@ -28,15 +28,15 @@ export class CronRecord extends Model<
   @Attribute(DataTypes.INTEGER)
   @PrimaryKey
   @AutoIncrement
-  public id!: number;
+  declare id: number;
 
   @Attribute(DataTypes.STRING)
   @NotNull
-  public schedule!: string;
+  declare schedule: string;
 
   @Attribute(DataTypes.DATE)
   @Index({ name: "b-tree" }) // for a fast range search
-  public nextRunTime!: Date;
+  declare nextRunTime: Date;
 
   @BeforeSave
   static updateRecordNextRunTime(cronRecord: CronRecord) {

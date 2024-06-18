@@ -19,13 +19,13 @@ export class Log extends Model<LogAttributes, LogCreationAttributes> {
   @Attribute(DataTypes.INTEGER)
   @PrimaryKey
   @AutoIncrement
-  public id!: number;
+  declare id: number;
 
   @Attribute(DataTypes.STRING)
   @NotNull
-  public message!: string;
+  declare message: string;
 
   @Attribute(DataTypes.DATE)
   @Default(DataTypes.NOW)
-  public timestamp!: Date;
+  declare timestamp: Date;
 }

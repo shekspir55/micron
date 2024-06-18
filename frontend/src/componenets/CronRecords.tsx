@@ -113,10 +113,11 @@ export const CronRecords = () => {
   return (
     <div>
       {headLine}
-      <h3>In order to create 10K scheduler click the button below.</h3>
+      <h3>In order to create 10K cron jobs click the button below.</h3>
       <button onClick={() => handleBombard()}>
         ‼️ bombard with a 10000 records‼️
       </button>
+      <hr />
       <div>
         <h2>
           {editingCronRecord?.id
