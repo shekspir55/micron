@@ -1,8 +1,9 @@
 # Microservice+Cron = MICRON
 
-# [Design document](DESIGN.md)
+## [Design document](DESIGN.md)
 
-![MICRON preview](Peek 2024-06-18 20-10.gif)
+
+[Micron preview](./Peek-2024-06-18 20-10.gif)
 
 ## Note
 
