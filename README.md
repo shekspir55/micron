@@ -2,7 +2,6 @@
 
 ## [Design document](DESIGN.md)
 
-
 [Micron preview](./Peek-2024-06-18 20-10.gif)
 
 ## Note
@@ -11,7 +10,7 @@
 
 # Prerequirements
 
-The only pre-requirement is for you to have a [docker installed](https://docs.docker.com/engine/install/) and docker-compose. You also need to have the `make` command available.
+The only 2 pre-requirements are for you to have a [docker installed](https://docs.docker.com/engine/install/)  and  `make` command available.
 
 If you don't have `make` you can run commands from `Makefile` directly in the terminal simulator.
 
