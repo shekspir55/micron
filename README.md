@@ -1,6 +1,10 @@
 # Microservice+Cron = MICRON
 
+![MICRON preview](<Peek 2024-06-18 20-10.gif>)
+
 ## Note
+
+This project is extremely configurable. You can even configure the amount of workers and shard size for processing. However, do it at your own risk. :D My CPU is dying after 60K records per minute.
 
 Didn't want to over-engineer this task, so code for workers and API endpoints are all in the same project.
 
@@ -32,9 +36,10 @@ To run the backend test use `make test`.
 
 We could
 
-1. Set up a sharding cluster with Postgres
-2. Set up an elastic search cluster for logs with Kibana
-3. Divide each worker into a separate server which will be connected to its own "shard" to process the data
-4. Set up swarm/k8s solution to make it multiserver/scalable
-5. Rewrite the application with Rust GO or C
-6. On bombard, insert instead of individually
+1. Bulk inserts on the update, to not save each record one by one, but this solution is elegant and I was not given a benchmark.
+2. Set up a sharding cluster with Postgres
+3. Set up an elastic search cluster for logs with Kibana
+4. Divide each worker into a separate server which will be connected to its own "shard" to process the data
+5. Set up swarm/k8s solution to make it multiserver/scalable
+6. Rewrite the application with Rust GO or C
+7. On bombard, insert instead of individually
