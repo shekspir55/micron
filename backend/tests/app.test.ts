@@ -50,14 +50,14 @@ describe("Test app.ts", () => {
     expect(logsAfter.length).toEqual(1);
   });
 
-  test("POST /api/cron-records to return 201 with oneTime", async () => {
+  test("POST /api/cron-records to return 201 with isOneTime", async () => {
     const logs = await Log.findAll();
     expect(logs.length).toEqual(0);
 
     const res = await request(routes)
       .post("/api/cron-records")
-      .send({ schedule: new Date().toISOString(), isOneTime: true });
-
+      .send({ isOneTime: true, nextRunTime: new Date().toISOString() });
+    
     expect(res.status).toEqual(201);
     expect(res.body.isOneTime).toEqual(true);
     expect(res.body.id).toBeDefined();

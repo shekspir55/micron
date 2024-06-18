@@ -26,11 +26,10 @@ export const postCronRecord = async (req: Request, res: Response) => {
       .status(400)
       .send({ errorMessage: "isOneTime must be a boolean" });
   }
-
   const cronRecord = CronRecord.build({
-    schedule,
+    schedule: isOneTime ? "" : schedule,
     isOneTime,
-    nextRunTime,
+    nextRunTime: isOneTime ? new Date(nextRunTime) : new Date(),
   });
 
   await cronRecord.save();

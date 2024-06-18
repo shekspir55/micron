@@ -17,7 +17,7 @@ import { log } from "../helpers/logger";
 export type CronRecordAttributes = {
   id: number;
   schedule: string;
-  nextRunTime: string;
+  nextRunTime: Date;
   isOneTime: Boolean;
 };
 

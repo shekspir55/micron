@@ -131,26 +131,28 @@ export const CronRecords = () => {
             : "➕ Create record"}{" "}
           Cron Record
         </h2>{" "}
-        <div>
-          <input
-            type="radio"
-            id="one-time"
-            name="schedule"
-            value="one-time"
-            checked={isOneTime}
-            onChange={() => setIsOneTime(!isOneTime)}
-          />
-          <label htmlFor="one-time">One Time</label>
-          <input
-            type="radio"
-            id="recurring"
-            name="schedule"
-            value="recurring"
-            checked={!isOneTime}
-            onChange={() => setIsOneTime(!isOneTime)}
-          />
-          <label htmlFor="recurring">Recurring</label>
-        </div>
+        {!editingCronRecord?.id && (
+          <div>
+            <input
+              type="radio"
+              id="one-time"
+              name="schedule"
+              value="one-time"
+              checked={isOneTime}
+              onChange={() => setIsOneTime(!isOneTime)}
+            />
+            <label htmlFor="one-time">One Time</label>
+            <input
+              type="radio"
+              id="recurring"
+              name="schedule"
+              value="recurring"
+              checked={!isOneTime}
+              onChange={() => setIsOneTime(!isOneTime)}
+            />
+            <label htmlFor="recurring">Recurring</label>
+          </div>
+        )}
         <div>
           {isOneTime ? (
             <input
