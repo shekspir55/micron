@@ -7,6 +7,6 @@ export type Log = {
 };
 
 export async function getLogs() {
-  const response = await fetch("/api/logs");
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/logs`);
   return processResponse(response) as Promise<Log[]>;
 }

@@ -37,3 +37,4 @@ We could
 3. Divide each worker in a separate server which will be connected to it's own "shard" to process the data
 4. Set up swarm/k8s solution to make it muliserver/scalable
 5. Rewrite application with Rust or GO or C
+6. On bombard, insert instead of individually

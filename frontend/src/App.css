@@ -11,3 +11,13 @@
 table {
   width: 100%;
 }
+
+button {
+    background-color: rgb(255, 77, 79);
+    border: none;
+    padding: 7px;
+    margin: 2px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}

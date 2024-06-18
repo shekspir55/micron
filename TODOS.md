@@ -4,3 +4,4 @@
 * [ ] frontend and backend are not tested together
 * [ ] load testing is not done
 * [ ] Description for the architecture of the project with architecture diagrams
+* [ ] some issue with async tests

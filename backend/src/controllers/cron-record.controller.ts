@@ -55,7 +55,7 @@ export const deleteCronRecord = async (req: Request, res: Response) => {
 
   await cronRecord.destroy();
 
-  res.status(204).send();
+  res.status(204).send({message: "Cron record deleted"});
 };
 
 export const bombardWithCronRecord = async (req: Request, res: Response) => {

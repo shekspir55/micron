@@ -20,11 +20,11 @@ export const Logs = () => {
       }
     };
 
-
     // Done it this way, because the logs are not updated in real time
     // and the logs are limited by 10000 records
     // no need to websocket or long polling
     const logFetchingInterval = setInterval(fetchLogs, fiveSeconds);
+    fetchLogs();
 
     return () => clearInterval(logFetchingInterval);
   }, []);
@@ -40,7 +40,7 @@ export const Logs = () => {
   }
 
   return (
-    <>
+    <div>
       {headLine}
       <h2>Note: logs limited by 10000 records</h2>
       <hr />
@@ -62,6 +62,6 @@ export const Logs = () => {
           ))}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };

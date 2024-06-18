@@ -25,7 +25,7 @@ const splitIntoChunks = (arr: any[], chunkSize: number) => {
 
 export const sartCron = async () => {
   log("Cron process started");
-
+return
   setInterval(async () => {
     log("Cron worker is starting to execute cron jobs");
 

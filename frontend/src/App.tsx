@@ -7,6 +7,7 @@ function App() {
   return (
     <div className="side-by-side">
       <CronRecords />
+      <hr />
       <Logs />
     </div>
   );
