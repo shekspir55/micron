@@ -11,11 +11,10 @@ test: down build-backend
 
 build: build-backend build-frontend
 
-up: build
+up: down build
 	docker-compose up -d
 
 down:
-	sudo rm -rf ./backend/tests/test-postgres && \
 	docker-compose down |\
 	docker-compose -f docker-compose.dev.yml down |\
 	docker-compose -f docker-compose.test.yml down
