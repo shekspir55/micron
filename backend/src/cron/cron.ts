@@ -32,6 +32,12 @@ const cron = async () => {
     },
   });
 
+  if (cronRecordsCount < 1) {
+    log("No cron jobs to execute");
+    isCronRunning = false;
+    return;
+  }
+
   const numberOfWorkers = Math.min(
     Math.round(cronRecordsCount / maxNumberOfTasksPerWorker),
     maxNumberOfWorkers
