@@ -106,5 +106,10 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "exclude": ["./coverage", "./dist", "__tests__", "jest.config.js"]
+  "exclude": ["./coverage", "./dist", "__tests__", "jest.config.js"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  }
 }
