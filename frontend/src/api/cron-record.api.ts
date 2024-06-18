@@ -4,14 +4,21 @@ export type CronRecord = {
   id: number;
   schedule: string;
   nextRunTime: string;
+  isOneTime: boolean;
 };
 
 export async function getCronRecords(): Promise<CronRecord[]> {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/cron-records`);
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/api/cron-records`
+  );
   return processResponse(response) as Promise<CronRecord[]>;
 }
 
-export async function createCronRecord(schedule: string): Promise<CronRecord> {
+export async function createCronRecord({
+  schedule,
+  nextRunTime,
+  isOneTime,
+}: Omit<CronRecord, "id">): Promise<CronRecord> {
   const response = await fetch(
     `${process.env.REACT_APP_SERVER_URL}/api/cron-records`,
     {
@@ -19,7 +26,7 @@ export async function createCronRecord(schedule: string): Promise<CronRecord> {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ schedule }),
+      body: JSON.stringify({ schedule, nextRunTime, isOneTime}),
     }
   );
 

@@ -5,22 +5,33 @@ import { CronRecord, CronRecordAttributes } from "../models/cron-record.model";
 export const getCronRecords = async (req: Request, res: Response) => {
   const cronRecords = await CronRecord.findAll({
     order: [["id", "DESC"]],
-    limit: 20000
+    limit: 20000,
   });
-  
+
   res.status(200).send(cronRecords);
 };
 
 export const postCronRecord = async (req: Request, res: Response) => {
-  const { schedule } = req.body as { schedule: string };
+  const { schedule, isOneTime, nextRunTime } = req.body as Omit<
+    CronRecordAttributes,
+    "id"
+  >;
 
-  if (!schedule) {
+  if (!schedule && !(isOneTime && nextRunTime)) {
     return res.status(400).send({ errorMessage: "Schedule is required" });
+  }
+
+  if (isOneTime && typeof isOneTime !== "boolean") {
+    return res
+      .status(400)
+      .send({ errorMessage: "isOneTime must be a boolean" });
   }
 
   const cronRecord = CronRecord.build({
     schedule,
-  } as CronRecordAttributes);
+    isOneTime,
+    nextRunTime,
+  });
 
   await cronRecord.save();
 

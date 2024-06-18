@@ -1,8 +1,11 @@
 # Microservice+Cron = MICRON
 
-![MICRON preview](<Peek 2024-06-18 20-10.gif>)
+![MICRON preview](Peek 2024-06-18 20-10.gif)
 
 ## Note
+
+`One time scheduling is implemented only for creating records, and not editing.`
+
 
 This project is extremely configurable. You can even configure the amount of workers and shard size for processing. However, do it at your own risk. :D My CPU is dying after 60K records per minute.
 

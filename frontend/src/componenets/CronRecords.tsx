@@ -13,8 +13,12 @@ export const CronRecords = () => {
   const [cronRecords, setCronRecords] = useState<CronRecord[]>([]);
   const [editingCronRecord, setEditingCronRecord] =
     useState<CronRecord | null>();
+
+  const [isOneTime, setIsOneTime] = useState(false);
   const [schedule, setSchedule] = useState("30 5 * * 1,6");
-  const [loading, setLoading] = useState(true);
+  const [nextRunTime, setNextRunTime] = useState("");
+
+  const [loading, setLoading] = useState(false);
 
   const handleDelete = async (id: number) => {
     try {
@@ -55,7 +59,12 @@ export const CronRecords = () => {
 
   const handleCreate = async () => {
     try {
-      const newRecord = await createCronRecord(schedule);
+      const newRecord = await createCronRecord({
+        schedule,
+        nextRunTime,
+        isOneTime,
+      });
+      setNextRunTime("");
       setCronRecords([newRecord, ...cronRecords]);
     } catch (error) {
       console.error("Failed to create new cron record", error);
@@ -122,11 +131,41 @@ export const CronRecords = () => {
             : "➕ Create record"}{" "}
           Cron Record
         </h2>{" "}
-        <input
-          type="text"
-          value={schedule}
-          onChange={(e) => setSchedule(e.target.value)}
-        />
+        <div>
+          <input
+            type="radio"
+            id="one-time"
+            name="schedule"
+            value="one-time"
+            checked={isOneTime}
+            onChange={() => setIsOneTime(!isOneTime)}
+          />
+          <label htmlFor="one-time">One Time</label>
+          <input
+            type="radio"
+            id="recurring"
+            name="schedule"
+            value="recurring"
+            checked={!isOneTime}
+            onChange={() => setIsOneTime(!isOneTime)}
+          />
+          <label htmlFor="recurring">Recurring</label>
+        </div>
+        <div>
+          {isOneTime ? (
+            <input
+              type="datetime-local"
+              value={nextRunTime}
+              onChange={(e) => setNextRunTime(e.target.value)}
+            />
+          ) : (
+            <input
+              type="text"
+              value={schedule}
+              onChange={(e) => setSchedule(e.target.value)}
+            />
+          )}
+        </div>
         <button
           className="big-button"
           onClick={() =>

@@ -31,7 +31,7 @@ describe("Test app.ts", () => {
     expect(res.status).toEqual(400);
   });
 
-  test("POST /api/cron-records to return 201", async () => {
+  test("POST /api/cron-records to return 201 with schedule", async () => {
     const schedule = "*/4 * * * *";
 
     const logs = await Log.findAll();
@@ -50,13 +50,32 @@ describe("Test app.ts", () => {
     expect(logsAfter.length).toEqual(1);
   });
 
+  test("POST /api/cron-records to return 201 with oneTime", async () => {
+    const logs = await Log.findAll();
+    expect(logs.length).toEqual(0);
+
+    const res = await request(routes)
+      .post("/api/cron-records")
+      .send({ schedule: new Date().toISOString(), isOneTime: true });
+
+    expect(res.status).toEqual(201);
+    expect(res.body.isOneTime).toEqual(true);
+    expect(res.body.id).toBeDefined();
+    expect(new Date(res.body.nextRunTime).getTime()).not.toBeNaN();
+
+    const logsAfter = await Log.findAll();
+    expect(logsAfter.length).toEqual(1);
+  });
+
   test("PUT /api/cron-records/:id to return 404", async () => {
     const res = await request(routes).put("/api/cron-records/1");
     expect(res.status).toEqual(400);
 
-    const resWithSchedule = await request(routes).put("/api/cron-records/1").send({
-      schedule: "*/5 * * * *",
-    });
+    const resWithSchedule = await request(routes)
+      .put("/api/cron-records/1")
+      .send({
+        schedule: "*/5 * * * *",
+      });
     expect(resWithSchedule.status).toEqual(404);
   });
 

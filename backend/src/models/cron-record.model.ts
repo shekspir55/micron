@@ -7,6 +7,7 @@ import {
   NotNull,
   BeforeSave,
   AfterSave,
+  Default,
 } from "@sequelize/core/decorators-legacy";
 import type { PartialBy } from "@sequelize/utils";
 
@@ -16,7 +17,8 @@ import { log } from "../helpers/logger";
 export type CronRecordAttributes = {
   id: number;
   schedule: string;
-  nextRunTime: Date;
+  nextRunTime: string;
+  isOneTime: Boolean;
 };
 
 type CronRecordCreationAttributes = PartialBy<CronRecordAttributes, "id">;
@@ -38,8 +40,16 @@ export class CronRecord extends Model<
   @Index({ name: "b-tree" }) // for a fast range search
   declare nextRunTime: Date;
 
+  @Attribute(DataTypes.BOOLEAN)
+  @Default(false)
+  declare isOneTime: Boolean;
+
   @BeforeSave
   static updateRecordNextRunTime(cronRecord: CronRecord) {
+    if (cronRecord.isOneTime){
+      return;
+    }
+    
     cronRecord.nextRunTime = getNextRunTime(cronRecord.schedule);
   }
 
