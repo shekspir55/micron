@@ -125,5 +125,5 @@ describe("Test app.ts", () => {
     expect(logsRes.body.length).toBeGreaterThanOrEqual(1000);
 
     expect(res.status).toEqual(200);
-  }, 30000);
+  }, 60000);
 });

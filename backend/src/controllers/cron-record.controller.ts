@@ -3,7 +3,11 @@ import { Request, Response } from "express";
 import { CronRecord, CronRecordAttributes } from "../models/cron-record.model";
 
 export const getCronRecords = async (req: Request, res: Response) => {
-  const cronRecords = await CronRecord.findAll();
+  const cronRecords = await CronRecord.findAll({
+    order: [["id", "DESC"]],
+    limit: 20000
+  });
+  
   res.status(200).send(cronRecords);
 };
 
@@ -55,16 +59,14 @@ export const deleteCronRecord = async (req: Request, res: Response) => {
 
   await cronRecord.destroy();
 
-  res.status(204).send({message: "Cron record deleted"});
+  res.status(204).send({ message: "Cron record deleted" });
 };
 
 export const bombardWithCronRecord = async (req: Request, res: Response) => {
   const cronRecords = Array.from({ length: 10000 })
     .map(
-      () =>
-        Array.from({ length: 5 }, () => 1 + Math.floor(Math.random() * 6)).join(
-          " "
-        ) // to simplify, we are generating a random schedule from 1 to 7
+      () => `*/${1 + Math.round(Math.random())} * * * *`
+      // to simplify, we are generating a random schedule from 1 to 2 minutes so we can test it quickly
     )
     .map((schedule) =>
       CronRecord.build({ schedule } as CronRecordAttributes).save()

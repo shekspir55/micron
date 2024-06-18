@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Cron } from "react-js-cron";
 
 import {
   CronRecord,
@@ -10,14 +9,12 @@ import {
   updateCronRecord,
 } from "../api/cron-record.api";
 
-import "react-js-cron/dist/styles.css";
-
 export const CronRecords = () => {
   const [cronRecords, setCronRecords] = useState<CronRecord[]>([]);
   const [editingCronRecord, setEditingCronRecord] =
     useState<CronRecord | null>();
   const [schedule, setSchedule] = useState("30 5 * * 1,6");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleDelete = async (id: number) => {
     try {
@@ -59,8 +56,7 @@ export const CronRecords = () => {
   const handleCreate = async () => {
     try {
       const newRecord = await createCronRecord(schedule);
-      setCronRecords([...cronRecords, newRecord]);
-      setSchedule("");
+      setCronRecords([newRecord, ...cronRecords]);
     } catch (error) {
       console.error("Failed to create new cron record", error);
       alert(
@@ -75,6 +71,7 @@ export const CronRecords = () => {
       setLoading(true);
       const records = await bombardCronRecord();
       setCronRecords(records);
+      setLoading(false);
     } catch (error) {
       console.error("Failed to bombard", error);
       alert(
@@ -114,7 +111,7 @@ export const CronRecords = () => {
     <div>
       {headLine}
       <h3>In order to create 10K cron jobs click the button below.</h3>
-      <button onClick={() => handleBombard()}>
+      <button className="big-button" onClick={() => handleBombard()}>
         ‼️ bombard with a 10000 records‼️
       </button>
       <hr />
@@ -125,8 +122,13 @@ export const CronRecords = () => {
             : "➕ Create record"}{" "}
           Cron Record
         </h2>{" "}
-        <Cron value={schedule} setValue={setSchedule} />
+        <input
+          type="text"
+          value={schedule}
+          onChange={(e) => setSchedule(e.target.value)}
+        />
         <button
+          className="big-button"
           onClick={() =>
             editingCronRecord?.id ? handleUpdate() : handleCreate()
           }
@@ -134,7 +136,12 @@ export const CronRecords = () => {
           💾 {editingCronRecord?.id ? "Update" : "Create"}
         </button>{" "}
         {editingCronRecord?.id && (
-          <button onClick={() => setEditingCronRecord(null)}>🚫 Cancel</button>
+          <button
+            className="big-button"
+            onClick={() => setEditingCronRecord(null)}
+          >
+            🚫 Cancel
+          </button>
         )}
       </div>
       <hr />
@@ -155,7 +162,12 @@ export const CronRecords = () => {
               <td>{record.schedule}</td>
               <td>{record.nextRunTime}</td>
               <td>
-                <button onClick={() => setEditingCronRecord(record)}>
+                <button
+                  onClick={() => {
+                    setEditingCronRecord(record);
+                    setSchedule(record.schedule);
+                  }}
+                >
                   ✏️ Edit
                 </button>
                 <button onClick={() => handleDelete(record.id)}>
@@ -166,6 +178,7 @@ export const CronRecords = () => {
           ))}
         </tbody>
       </table>
+      <p> Visible limit is 20K records.</p>
     </div>
   );
 };

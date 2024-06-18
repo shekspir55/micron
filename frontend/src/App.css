@@ -13,11 +13,22 @@ table {
 }
 
 button {
-    background-color: rgb(255, 77, 79);
-    border: none;
-    padding: 7px;
-    margin: 2px;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
+  background-color: rgb(255, 77, 79);
+  border: none;
+  margin: 2px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.big-button,
+input {
+  width: 100%;
+}
+
+input {
+  width: calc(100% - 14px);
+  padding: 7px;
+  border-radius: 5px;
+  margin: 2px;
 }

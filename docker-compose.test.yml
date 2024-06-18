@@ -1,0 +1,30 @@
+
+services:
+  test-postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=cron
+      - POSTGRES_PASSWORD=cron
+      - POSTGRES_DB=cron
+    volumes:
+      - ./backend/tests/test-postgres:/var/lib/postgresql/data
+    networks:
+      - test-network
+
+  cron-backend:
+    image: cron-backend
+    depends_on:
+      - test-postgres
+    environment:
+      - DB_HOST=test-postgres
+      - DB_PORT=5432
+      - DB_USER=cron
+      - DB_PASSWORD=cron
+      - DB_NAME=cron
+    networks:
+      - test-network
+
+networks:
+  test-network:
+

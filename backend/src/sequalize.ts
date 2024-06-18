@@ -17,7 +17,6 @@ export const initDB = async function () {
     },
   };
 
-  console.log(sequelizeConfig);
 
   const sequelize = new Sequelize({
     ...sequelizeConfig,
@@ -29,8 +28,6 @@ export const initDB = async function () {
   console.log("Database Connection has been established successfully.");
 
   // Remove in real production
-  await sequelize.sync({ force: true });
-  
-  console.log("All models were synchronized successfully.");
+  await sequelize.sync({});
   return sequelize;
 };

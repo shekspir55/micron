@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 
 import { initDB } from "./src/sequalize";
-import { sartCron } from "./src/cron/cron-worker";
+import { startCron } from "./src/cron/cron";
 
 import app from "./src/app";
 
@@ -16,5 +16,5 @@ app.listen(port, () => {
 
 (async () => {
   await initDB();
-  sartCron();
+  startCron();
 })();

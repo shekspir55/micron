@@ -51,7 +51,8 @@ export class CronRecord extends Model<
         " scheduled with: " +
         cronRecord.schedule +
         " will run at: " +
-        cronRecord.nextRunTime
+        cronRecord.nextRunTime,
+      false
     );
   }
 }
