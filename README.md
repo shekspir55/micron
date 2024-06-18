@@ -1,18 +1,18 @@
 # Microservice+Cron = MICRON
 
+# [Design document](DESIGN.md)
+
 ![MICRON preview](Peek 2024-06-18 20-10.gif)
 
 ## Note
 
-`One time scheduling is implemented only for creating records, and not editing.`
+`One-time scheduling is implemented only for creating records, and not editing.`
 
 # Prerequirements
 
-The only pre-requirement is for you to have a [docker installed](https://docs.docker.com/engine/install/) and docker-compose. You also need to have `make` command available.
+The only pre-requirement is for you to have a [docker installed](https://docs.docker.com/engine/install/) and docker-compose. You also need to have the `make` command available.
 
 If you don't have `make` you can run commands from `Makefile` directly in the terminal simulator.
-
-#### Project backend was set up from scratch, no boilerplate was used
 
 # Running and stopping the project
 
